@@ -11,6 +11,21 @@ public class ParserImpl
             System.out.println(message);
     }
 
+    Env env = new Env(null);
+
+    void create_local_env() throws Exception {
+        if (env == null)
+            env = new Env(null);
+        else env = new Env(env);
+    }
+
+    void delete_local_env() throws Exception {
+        if (env != null) {
+            Env p = env.prev;
+            env = p;
+        }
+    }
+
     // this stores the root of parse tree, which will be used to print parse tree and run the parse tree
     ParseTree.Program parsetree_program = null;
 
@@ -58,9 +73,9 @@ public class ParserImpl
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Object params____paramlist() throws Exception
+    Object params____paramlist(Object s1) throws Exception
     {
-
+        return s1;
     }
 
     Object params____eps() throws Exception 
@@ -68,14 +83,19 @@ public class ParserImpl
         return new ArrayList<ParseTree.Param>();
     }
 
-    Object paramlist____paramlist_param() throws Exception
+    Object paramlist____paramlist_COMMA_param(Object s1, Object s3) throws Exception
     {
-
+        ((HashMap<String, Object>) s1).putAll((HashMap<String, Object>) s3);
+        return s1;
     }
 
-    Object paramlist____param() throws Exception
+    Object paramlist____param(Object s1) throws Exception
     {
-
+        ArrayList<Object> paramlist = new ArrayList<Object>(); //new ArrayList<>();
+        paramlist.add(s1);
+        return paramlist;
+        // return s1;
+        // not sure which one to use
     }
 
     Object param____IDENT_TYPEOF_type_spec() throws Exception
@@ -234,29 +254,44 @@ public class ParserImpl
         return new ParseTree.ExprOper("=",expr1,expr2);
     }
 
-    Object expr____expr_NE_expr() throws Exception
+    Object expr____expr_NE_expr(Object s1, Object s2, Object s3) throws Exception
     {
-
+        ParseTree.Expr expr1 = (ParseTree.Expr)s1;
+        Token          oper  = (Token         )s2;
+        ParseTree.Expr expr2 = (ParseTree.Expr)s3;
+        return new ParseTree.ExprOper("!=",expr1,expr2);
     }
 
-    Object expr____expr_LE_expr() throws Exception
+    Object expr____expr_LE_expr(Object s1, Object s2, Object s3) throws Exception
     {
-
+        ParseTree.Expr expr1 = (ParseTree.Expr)s1;
+        Token          oper  = (Token         )s2;
+        ParseTree.Expr expr2 = (ParseTree.Expr)s3;
+        return new ParseTree.ExprOper("<=",expr1,expr2);
     }
 
-    Object expr____expr_LT_expr() throws Exception
+    Object expr____expr_LT_expr(Object s1, Object s2, Object s3) throws Exception
     {
-
+        ParseTree.Expr expr1 = (ParseTree.Expr)s1;
+        Token          oper  = (Token         )s2;
+        ParseTree.Expr expr2 = (ParseTree.Expr)s3;
+        return new ParseTree.ExprOper("<",expr1,expr2);
     }
 
-    Object expr____expr_GE_expr() throws Exception
+    Object expr____expr_GE_expr(Object s1, Object s2, Object s3) throws Exception
     {
-
+        ParseTree.Expr expr1 = (ParseTree.Expr)s1;
+        Token          oper  = (Token         )s2;
+        ParseTree.Expr expr2 = (ParseTree.Expr)s3;
+        return new ParseTree.ExprOper(">=",expr1,expr2);
     }
 
-    Object expr____expr_GT_expr() throws Exception
+    Object expr____expr_GT_expr(Object s1, Object s2, Object s3) throws Exception
     {
-
+        ParseTree.Expr expr1 = (ParseTree.Expr)s1;
+        Token          oper  = (Token         )s2;
+        ParseTree.Expr expr2 = (ParseTree.Expr)s3;
+        return new ParseTree.ExprOper(">",expr1,expr2);
     }
 
     Object expr____expr_ADD_expr(Object s1, Object s2, Object s3) throws Exception
@@ -267,24 +302,36 @@ public class ParserImpl
         return new ParseTree.ExprOper("+",expr1,expr2);
     }
 
-    Object expr____expr_SUB_expr() throws Exception
+    Object expr____expr_SUB_expr(Object s1, Object s2, Object s3) throws Exception
     {
-
+        ParseTree.Expr expr1 = (ParseTree.Expr)s1;
+        Token          oper  = (Token         )s2;
+        ParseTree.Expr expr2 = (ParseTree.Expr)s3;
+        return new ParseTree.ExprOper("-",expr1,expr2);
     }
 
-    Object expr____expr_MUL_expr() throws Exception
+    Object expr____expr_MUL_expr(Object s1, Object s2, Object s3) throws Exception
     {
-
+        ParseTree.Expr expr1 = (ParseTree.Expr)s1;
+        Token          oper  = (Token         )s2;
+        ParseTree.Expr expr2 = (ParseTree.Expr)s3;
+        return new ParseTree.ExprOper("*",expr1,expr2);
     }
 
-    Object expr____expr_DIV_expr() throws Exception
+    Object expr____expr_DIV_expr(Object s1, Object s2, Object s3) throws Exception
     {
-
+        ParseTree.Expr expr1 = (ParseTree.Expr)s1;
+        Token          oper  = (Token         )s2;
+        ParseTree.Expr expr2 = (ParseTree.Expr)s3;
+        return new ParseTree.ExprOper("/",expr1,expr2);
     }
 
-    Object expr____expr_MOD_expr() throws Exception
+    Object expr____expr_MOD_expr(Object s1, Object s2, Object s3) throws Exception
     {
-
+        ParseTree.Expr expr1 = (ParseTree.Expr)s1;
+        Token          oper  = (Token         )s2;
+        ParseTree.Expr expr2 = (ParseTree.Expr)s3;
+        return new ParseTree.ExprOper("%",expr1,expr2);
     }
 
     Object expr____LPAREN_expr_RPAREN(Object s1, Object s2, Object s3) throws Exception
@@ -299,9 +346,11 @@ public class ParserImpl
         Token id = (Token)s1;
         return new ParseTree.ExprIdent(id.lexeme);
     }
-    Object expr____BOOLLIT() throws Exception
+    Object expr____BOOLLIT(Object s1) throws Exception
     {
-
+        Token token = (Token)s1;
+        boolean value = Boolean.parseBoolean(token.lexeme);
+        return new ParseTree.ExprBoolLit(value);
     }
     Object expr____INTLIT(Object s1) throws Exception
     {
