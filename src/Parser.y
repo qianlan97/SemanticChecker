@@ -72,14 +72,14 @@ param_list	: param_list COMMA param			{ Debug("param_list -> param_list , param"
 param		: IDENT TYPEOF type_spec			{ Debug("param -> IDENT TYPEOF type_spec"       ); $$ = param____IDENT_TYPEOF_type_spec	(); }
 		;
 
-type_spec	: prim_type					{ Debug("type_spec -> prim_type"                ); $$ = typespec____primtype		(); }
+type_spec	: prim_type					{ Debug("type_spec -> prim_type"                ); $$ = typespec____primtype		($1); }
 		;
 
 prim_type       : INT                                           { Debug("prim_type -> INT"                  	); $$ = primtype____INT			(); }
 		| BOOL						{ Debug("prim_type -> BOOL"                  	); $$ = primtype____BOOL		(); }
                 ;
 
-local_decls     : local_decls local_decl			{ Debug("local_decls -> local_decls local_decl" ); $$ = localdecls____localdecls_localdecl(); }
+local_decls     : local_decls local_decl			{ Debug("local_decls -> local_decls local_decl" ); $$ = localdecls____localdecls_localdecl($1,$2); }
 		|						{ Debug("local_decls -> eps"                  	); $$ = localdecls____eps		(); }
                 ;
 
@@ -91,17 +91,17 @@ stmt_list       : stmt_list stmt                                { Debug("stmt_li
                 ;
 
 stmt            : assign_stmt                                   { Debug("stmt -> assign_stmt"                  	); $$ = stmt____assignstmt		($1); }
-		| print_stmt					{ Debug("stmt -> print_stmt"                  	); $$ = stmt____printstmt		(); }
+		| print_stmt					{ Debug("stmt -> print_stmt"                  	); $$ = stmt____printstmt		($1); }
                 | return_stmt                                   { Debug("stmt -> return_stmt"                  	); $$ = stmt____returnstmt		($1); }
-                | if_stmt					{ Debug("stmt -> if_stmt"                  	); $$ = stmt____ifstmt			(); }
-                | while_stmt					{ Debug("stmt -> while_stmt"                  	); $$ = stmt____whilestmt		(); }
-                | compound_stmt					{ Debug("stmt -> compound_stmt"                 ); $$ = stmt____compoundstmt		(); }
+                | if_stmt					{ Debug("stmt -> if_stmt"                  	); $$ = stmt____ifstmt			($1); }
+                | while_stmt					{ Debug("stmt -> while_stmt"                  	); $$ = stmt____whilestmt		($1); }
+                | compound_stmt					{ Debug("stmt -> compound_stmt"                 ); $$ = stmt____compoundstmt		($1); }
                 ;
 
 assign_stmt     : IDENT ASSIGN expr SEMI                        { Debug("assign_stmt -> IDENT <- expr ;"    ); $$ = assignstmt____IDENT_ASSIGN_expr_SEMI($1,$2,$3); }
                 ;
 
-print_stmt	: PRINT expr SEMI				{ Debug("print_stmt -> PRINT expr ;"            ); $$ = printstmt____PRINT_expr_SEMI	(); }
+print_stmt	: PRINT expr SEMI				{ Debug("print_stmt -> PRINT expr ;"            ); $$ = printstmt____PRINT_expr_SEMI	($2); }
 		;
 
 return_stmt     : RETURN expr SEMI                              { Debug("return_stmt -> RETURN expr ;"          ); $$ = returnstmt____RETURN_expr_SEMI	($2); }

@@ -95,7 +95,7 @@ public class ParserImpl
         paramlist.add(s1);
         return paramlist;
         // return s1;
-        // not sure which one to use
+        //////////////////////////////////////
     }
 
     Object param____IDENT_TYPEOF_type_spec() throws Exception
@@ -103,9 +103,10 @@ public class ParserImpl
 
     }
 
-    Object typespec____primtype() throws Exception
+    Object typespec____primtype(Object s1) throws Exception
     {
-
+        return s1;
+        //////////////////////////////////////
     }
 
     Object primtype____INT() throws Exception
@@ -116,12 +117,15 @@ public class ParserImpl
 
     Object primtype____BOOL() throws Exception
     {
-
+        ParseTree.TypeSpec typespec = new ParseTree.TypeSpec("bool");
+        return typespec;
     }
 
-    Object localdecls____localdecls_localdecl() throws Exception
+    Object localdecls____localdecls_localdecl(Object s1, Object s2) throws Exception
     {
-
+        ((ArrayList<ParseTree.LocalDecl>)s1).add((ParseTree.LocalDecl)s2);
+        return s1;
+        //////////////////////////////////////
     }
 
     Object localdecls____eps() throws Exception
@@ -152,9 +156,10 @@ public class ParserImpl
         return s1;
     }
 
-    Object stmt____printstmt() throws Exception
+    Object stmt____printstmt(Object s1) throws Exception
     {
-
+        assert(s1 instanceof ParseTree.PrintStmt);
+        return s1;
     }
 
     Object stmt____returnstmt  (Object s1) throws Exception
@@ -163,19 +168,22 @@ public class ParserImpl
         return s1;
     }
 
-    Object stmt____ifstmt() throws Exception
+    Object stmt____ifstmt(Object s1) throws Exception
     {
-
+        assert(s1 instanceof ParseTree.IfStmt);
+        return s1;
     }
 
-    Object stmt____whilestmt() throws Exception
+    Object stmt____whilestmt(Object s1) throws Exception
     {
-
+        assert(s1 instanceof ParseTree.WhileStmt);
+        return s1;
     }
 
-    Object stmt____compoundstmt() throws Exception
+    Object stmt____compoundstmt(Object s1) throws Exception
     {
-
+        assert(s1 instanceof ParseTree.CompoundStmt);
+        return s1;
     }
 
     Object assignstmt____IDENT_ASSIGN_expr_SEMI(Object s1, Object s2, Object s3) throws Exception
@@ -186,9 +194,10 @@ public class ParserImpl
         return new ParseTree.AssignStmt(id.lexeme, expr);
     }
 
-    Object printstmt____PRINT_expr_SEMI() throws Exception
+    Object printstmt____PRINT_expr_SEMI(Object s2) throws Exception
     {
-
+        ParseTree.Expr expr = (ParseTree.Expr)s2;
+        return new ParseTree.PrintStmt(expr);
     }
 
     Object returnstmt____RETURN_expr_SEMI(Object s2) throws Exception
