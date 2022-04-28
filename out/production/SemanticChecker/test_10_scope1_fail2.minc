@@ -1,0 +1,23 @@
+func main::(a::int, b::int)->int
+begin
+    var la::int;
+    var la::int; // re-define la in the same block is not allowed, which is already defined above
+    begin
+        var a::bool;
+        var b::bool;
+        var ga::bool ;
+        ga <- true;
+        a <- true;
+        b <- true;
+    end
+    a <- 1;
+    b <- 20;
+    ga <- 3;
+    gb <- 40;
+    gc <- true;
+    begin
+        var la::bool;
+        la <- true;
+    end
+    return 0;
+end

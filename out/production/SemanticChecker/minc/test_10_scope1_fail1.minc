@@ -1,0 +1,23 @@
+func main::(a::int, b::int)->int
+begin
+    var a::bool;         // Since a is already defined as parameter of main() function, a cannot be defined as a new variable here
+    var lb::int;
+    begin
+        var a::bool;     // However, redefining a in a new composite_stmt is allowed
+        var b::bool;
+        var ga::bool ;
+        ga <- true;
+        a <- true;
+        b <- true;
+    end
+    a <- true;
+    b <- 20;
+    ga <- 3;
+    gb <- 40;
+    gc <- true;
+    begin
+        var la::bool;
+        la <- true;
+    end
+    return 0;
+end

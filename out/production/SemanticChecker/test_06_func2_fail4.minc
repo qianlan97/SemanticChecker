@@ -1,0 +1,11 @@
+func Func::(a::int, b::int, c::bool)->int
+begin
+    return 0;
+end
+func main::()->int
+begin
+    var Func::bool ;
+    var x::int;
+    x <- Func(1, 23, true);
+    return 0;
+end

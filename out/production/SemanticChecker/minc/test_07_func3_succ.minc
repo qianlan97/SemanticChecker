@@ -1,0 +1,19 @@
+func mul::(a::int, b::int)->int
+begin
+    if b = 0 then
+        return 0;
+    else
+        if b < 0 then
+            return mul(a, b+1) - a;
+        else
+            return mul(a, b-1) + a;
+        end
+    end
+end
+func main::()->int
+begin
+    var x::int;
+    x <- mul(5, 5);
+    print x;
+    return x;
+end

@@ -1,0 +1,51 @@
+Success: no semantic error is found.
+
+================================================================================
+Code with indentations:
+func mul :: ( a::int, b::int ) -> int
+begin
+    if b = 0 then
+        return 0;
+    else
+        if b < 0 then
+            return mul(a, b + 1) - a;
+        else
+            return mul(a, b - 1) + a;
+        end
+    end
+end
+func main :: (  ) -> int
+begin
+    var x :: int;
+    x <- mul(5, 5);
+    print x;
+    return x;
+end
+================================================================================
+Code with indentations and comments for running environment:
+func mul :: ( a::int, b::int ) -> int
+// relative address of parameter a from func call base is -1
+// relative address of parameter b from func call base is -2
+begin
+    if b[-2] = 0 then
+        return 0;
+    else
+        if b[-2] < 0 then
+            return mul(a[-1], b[-2] + 1) - a[-1];
+        else
+            return mul(a[-1], b[-2] - 1) + a[-1];
+        end
+    end
+end
+func main :: (  ) -> int
+begin
+    var x :: int; // relative address of local variable x from func call base is 1
+    x[1] <- mul(5, 5);
+    print x[1];
+    return x[1];
+end
+================================================================================
+Execute:
+25
+Returned value by main: 25
+================================================================================

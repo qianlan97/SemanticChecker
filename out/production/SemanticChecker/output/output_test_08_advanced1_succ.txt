@@ -1,0 +1,70 @@
+Success: no semantic error is found.
+
+================================================================================
+Code with indentations:
+func div :: ( a::int, b::int ) -> int
+begin
+    var c :: int;
+    if a < b then
+        c <- 0;
+    else
+        c <- div(a - b, b) + 1;
+    end
+    return c;
+end
+func mod :: ( a::int, b::int ) -> int
+begin
+    var c :: int;
+    if a < b then
+        c <- a;
+    else
+        c <- mod(a - b, b);
+    end
+    return c;
+end
+func main :: (  ) -> int
+begin
+    var c :: int;
+    print div(123, 5);
+    print mod(123, 5);
+    return 0;
+end
+================================================================================
+Code with indentations and comments for running environment:
+func div :: ( a::int, b::int ) -> int
+// relative address of parameter a from func call base is -1
+// relative address of parameter b from func call base is -2
+begin
+    var c :: int; // relative address of local variable c from func call base is 1
+    if a[-1] < b[-2] then
+        c[1] <- 0;
+    else
+        c[1] <- div(a[-1] - b[-2], b[-2]) + 1;
+    end
+    return c[1];
+end
+func mod :: ( a::int, b::int ) -> int
+// relative address of parameter a from func call base is -1
+// relative address of parameter b from func call base is -2
+begin
+    var c :: int; // relative address of local variable c from func call base is 1
+    if a[-1] < b[-2] then
+        c[1] <- a[-1];
+    else
+        c[1] <- mod(a[-1] - b[-2], b[-2]);
+    end
+    return c[1];
+end
+func main :: (  ) -> int
+begin
+    var c :: int; // relative address of local variable c from func call base is 1
+    print div(123, 5);
+    print mod(123, 5);
+    return 0;
+end
+================================================================================
+Execute:
+24
+3
+Returned value by main: 0
+================================================================================

@@ -1,0 +1,3 @@
+Error: there is semantic error(s).
+The function main() should return at least one int value.
+Error location is 9:1.

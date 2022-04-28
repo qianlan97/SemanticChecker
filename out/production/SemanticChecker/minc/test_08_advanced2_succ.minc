@@ -1,0 +1,42 @@
+func GCD::(a::int, b::int)->int
+begin
+    var gcd::int;
+
+    if a = 0 or b = 0
+    then
+        if a = 0 then
+            gcd <- b;
+        else
+            gcd <- a;
+        end
+    else
+        begin
+            var _mod::int;
+            if ( a > b ) then
+                gcd <- GCD( a - b, b );
+            else
+                gcd <- GCD( b - a, a );
+            end
+        end
+    end
+    return gcd;
+end
+
+func main::()->int
+begin
+    var gcd::int;
+
+    gcd <- GCD(12, 4);
+    print gcd;
+
+    gcd <- GCD(4, 12);
+    print gcd;
+
+    gcd <- GCD(4, 7);
+    print gcd;
+
+    gcd <- GCD(2*3*5*17*17, 17*4*9*10);
+    print gcd;
+
+    return gcd;
+end

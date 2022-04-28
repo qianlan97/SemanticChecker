@@ -1,0 +1,3 @@
+Error: there is semantic error(s).
+The identifier a is already defined.
+Error location is 3:9.

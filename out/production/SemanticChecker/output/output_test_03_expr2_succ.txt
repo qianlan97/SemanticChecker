@@ -1,0 +1,35 @@
+Success: no semantic error is found.
+
+================================================================================
+Code with indentations:
+func main :: (  ) -> int
+begin
+    var x :: int;
+    var y :: int;
+    var z :: bool;
+    x <- 0;
+    x <- x + 1;
+    y <- 10 * 21 + 35 / ( 41 - 53 );
+    z <- not true and 1 < 3 and y >= 42 or true = ( x < 2 );
+    print z;
+    return y;
+end
+================================================================================
+Code with indentations and comments for running environment:
+func main :: (  ) -> int
+begin
+    var x :: int; // relative address of local variable x from func call base is 1
+    var y :: int; // relative address of local variable y from func call base is 2
+    var z :: bool; // relative address of local variable z from func call base is 3
+    x[1] <- 0;
+    x[1] <- x[1] + 1;
+    y[2] <- 10 * 21 + 35 / ( 41 - 53 );
+    z[3] <- not true and 1 < 3 and y[2] >= 42 or true = ( x[1] < 2 );
+    print z[3];
+    return y[2];
+end
+================================================================================
+Execute:
+true
+Returned value by main: 208
+================================================================================

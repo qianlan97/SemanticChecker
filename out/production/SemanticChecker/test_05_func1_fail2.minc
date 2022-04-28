@@ -1,0 +1,15 @@
+func Func::()->int
+begin
+    return 0;
+end
+func main::()->int
+begin
+    var b::bool;
+    b <- (Func() = 0);
+    print b;
+    return 10;
+end
+func Func::(a::int)->int
+begin
+    return 0;
+end

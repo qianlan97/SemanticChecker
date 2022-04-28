@@ -1,0 +1,3 @@
+Error: there is semantic error(s).
+Cannot use an undefined variable ga.
+Error location is 15:5.

@@ -1,0 +1,3 @@
+Error: there is semantic error(s).
+Cannot perform not int.
+Error location is 8:23.

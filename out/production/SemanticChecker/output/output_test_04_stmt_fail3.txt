@@ -1,0 +1,3 @@
+Error: there is semantic error(s).
+Use bool value to the check condition in if statement.
+Error location is 23:8.

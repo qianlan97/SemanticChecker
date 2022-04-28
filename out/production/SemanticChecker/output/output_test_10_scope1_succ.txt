@@ -1,0 +1,75 @@
+Success: no semantic error is found.
+
+================================================================================
+Code with indentations:
+func main :: (  ) -> int
+begin
+    var a :: int;
+    var b :: int;
+    var ga :: int;
+    var gb :: int;
+    var gc :: bool;
+    begin
+        var la :: int;
+        var lb :: int;
+        begin
+            var a :: bool;
+            var b :: bool;
+            var ga :: bool;
+            ga <- true;
+            a <- true;
+            b <- true;
+        end
+        a <- 1;
+        b <- 20;
+        ga <- 3;
+        gb <- 40;
+        gc <- true;
+        begin
+            var la :: bool;
+            la <- a < ga and b >= gb;
+            gc <- gc and la;
+        end
+        print gc;
+    end
+    return gb;
+end
+================================================================================
+Code with indentations and comments for running environment:
+func main :: (  ) -> int
+begin
+    var a :: int; // relative address of local variable a from func call base is 1
+    var b :: int; // relative address of local variable b from func call base is 2
+    var ga :: int; // relative address of local variable ga from func call base is 3
+    var gb :: int; // relative address of local variable gb from func call base is 4
+    var gc :: bool; // relative address of local variable gc from func call base is 5
+    begin
+        var la :: int; // relative address of local variable la from func call base is 6
+        var lb :: int; // relative address of local variable lb from func call base is 7
+        begin
+            var a :: bool; // relative address of local variable a from func call base is 8
+            var b :: bool; // relative address of local variable b from func call base is 9
+            var ga :: bool; // relative address of local variable ga from func call base is 10
+            ga[10] <- true;
+            a[8] <- true;
+            b[9] <- true;
+        end
+        a[1] <- 1;
+        b[2] <- 20;
+        ga[3] <- 3;
+        gb[4] <- 40;
+        gc[5] <- true;
+        begin
+            var la :: bool; // relative address of local variable la from func call base is 11
+            la[11] <- a[1] < ga[3] and b[2] >= gb[4];
+            gc[5] <- gc[5] and la[11];
+        end
+        print gc[5];
+    end
+    return gb[4];
+end
+================================================================================
+Execute:
+false
+Returned value by main: 40
+================================================================================

@@ -1,0 +1,18 @@
+func mul::(a::int, b::int)->int
+begin
+    if a = 0 then
+        return 0;
+    else
+        if b < 0 then
+            return mul(a, 11) - a;
+        else
+            return mul(a, b-1) + a;
+        end
+    end
+end
+func main::()->int
+begin
+    var   xyz ::int;
+    xyz <- mul(true, 5);
+    return 0;
+end

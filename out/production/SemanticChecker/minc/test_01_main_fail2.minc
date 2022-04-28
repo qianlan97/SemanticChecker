@@ -1,0 +1,4 @@
+func main :: ( ) -> bool
+begin
+    return 12;
+end

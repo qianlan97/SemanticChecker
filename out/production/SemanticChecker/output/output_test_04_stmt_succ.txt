@@ -1,0 +1,101 @@
+Success: no semantic error is found.
+
+================================================================================
+Code with indentations:
+func main :: (  ) -> int
+begin
+    var i :: int;
+    var a :: int;
+    var b :: int;
+    var c :: int;
+    var d :: int;
+    var e :: bool;
+    var f :: bool;
+    i <- 10;
+    a <- 1;
+    b <- 1;
+    c <- 23;
+    d <- 23;
+    e <- not true;
+    f <- not true;
+    while i >= 0
+    begin
+        i <- i - 1;
+        if a > 10 then
+            a <- a / 2;
+        else
+            begin
+                var f :: int;
+                f <- 123;
+                a <- a + f;
+            end
+        end
+        print a;
+        print i;
+    end
+    print a;
+    return a;
+end
+================================================================================
+Code with indentations and comments for running environment:
+func main :: (  ) -> int
+begin
+    var i :: int; // relative address of local variable i from func call base is 1
+    var a :: int; // relative address of local variable a from func call base is 2
+    var b :: int; // relative address of local variable b from func call base is 3
+    var c :: int; // relative address of local variable c from func call base is 4
+    var d :: int; // relative address of local variable d from func call base is 5
+    var e :: bool; // relative address of local variable e from func call base is 6
+    var f :: bool; // relative address of local variable f from func call base is 7
+    i[1] <- 10;
+    a[2] <- 1;
+    b[3] <- 1;
+    c[4] <- 23;
+    d[5] <- 23;
+    e[6] <- not true;
+    f[7] <- not true;
+    while i[1] >= 0
+    begin
+        i[1] <- i[1] - 1;
+        if a[2] > 10 then
+            a[2] <- a[2] / 2;
+        else
+            begin
+                var f :: int; // relative address of local variable f from func call base is 8
+                f[8] <- 123;
+                a[2] <- a[2] + f[8];
+            end
+        end
+        print a[2];
+        print i[1];
+    end
+    print a[2];
+    return a[2];
+end
+================================================================================
+Execute:
+124
+9
+62
+8
+31
+7
+15
+6
+7
+5
+130
+4
+65
+3
+32
+2
+16
+1
+8
+0
+131
+-1
+131
+Returned value by main: 131
+================================================================================
