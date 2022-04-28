@@ -1,3 +1,0 @@
-Error: there is semantic error(s).
-Cannot use an undefined function Func().
-Error location is 4:10.

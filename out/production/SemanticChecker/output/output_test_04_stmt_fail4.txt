@@ -1,3 +1,0 @@
-Error: there is semantic error(s).
-Cannot assign bool value to int variable e.
-Error location is 31:11.

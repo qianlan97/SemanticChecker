@@ -1,3 +1,0 @@
-Error: there is semantic error(s).
-Cannot perform int < bool.
-Error location is 8:25.

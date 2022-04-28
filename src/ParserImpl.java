@@ -91,22 +91,18 @@ public class ParserImpl
 
     Object paramlist____param(Object s1) throws Exception
     {
-        ArrayList<Object> paramlist = new ArrayList<Object>(); //new ArrayList<>();
-        paramlist.add(s1);
-        return paramlist;
-        // return s1;
-        //////////////////////////////////////
+        return s1;
     }
 
-    Object param____IDENT_TYPEOF_type_spec() throws Exception
+    Object param____IDENT_TYPEOF_typespec(Object s1, Object s3) throws Exception
     {
-
+        ParseTree.Param param = new ParseTree.Param((String)s1, (ParseTree.TypeSpec)s3);
+        return param;
     }
 
     Object typespec____primtype(Object s1) throws Exception
     {
         return s1;
-        //////////////////////////////////////
     }
 
     Object primtype____INT() throws Exception
@@ -125,7 +121,6 @@ public class ParserImpl
     {
         ((ArrayList<ParseTree.LocalDecl>)s1).add((ParseTree.LocalDecl)s2);
         return s1;
-        //////////////////////////////////////
     }
 
     Object localdecls____eps() throws Exception
@@ -133,9 +128,10 @@ public class ParserImpl
         return new ArrayList<ParseTree.LocalDecl>();
     }
 
-    Object local_decl____VAR_IDENT_TYPEOF_typespec_SEMI() throws Exception
+    Object local_decl____VAR_IDENT_TYPEOF_typespec_SEMI(Object s2, Object s4) throws Exception
     {
-
+        ParseTree.LocalDecl local_decl = new ParseTree.LocalDecl((String)s2, (ParseTree.TypeSpec)s4);
+        return local_decl;
     }
 
     Object stmtlist____stmtlist_stmt(Object s1, Object s2) throws Exception
@@ -206,53 +202,69 @@ public class ParserImpl
         return new ParseTree.ReturnStmt(expr);
     }
 
-    Object ifstmt____IF_expr_THEN_stmtlist_ELSE_stmtlist_END() throws Exception
+    Object ifstmt____IF_expr_THEN_stmtlist_ELSE_stmtlist_END(Object s2, Object s4, Object s6) throws Exception
     {
-
+        ParseTree.IfStmt ifstmt = new ParseTree.IfStmt((ParseTree.Expr)s2, (ArrayList<ParseTree.Stmt>)s4, (ArrayList<ParseTree.Stmt>)s6);
+        return ifstmt;
     }
 
-    Object whilestmt____WHILE_expr_compoundstmt() throws Exception
+    Object whilestmt____WHILE_expr_compoundstmt(Object s2, Object s3) throws Exception
     {
-
+        ParseTree.WhileStmt whilestmt = new ParseTree.WhileStmt((ParseTree.Expr)s2, (ParseTree.CompoundStmt)s3);
+        return whilestmt;
     }
 
-    Object compoundstmt____BEGIN_localdecls_stmtlist_END() throws Exception
+    Object compoundstmt____BEGIN_localdecls_stmtlist_END(Object s2, Object s3) throws Exception
     {
-
+        ParseTree.CompoundStmt compoundstmt = new ParseTree.CompoundStmt((ArrayList<ParseTree.LocalDecl>)s2, (ArrayList<ParseTree.Stmt>)s3);
+        return compoundstmt;
     }
 
-    Object args____arglist() throws Exception
+    Object args____arglist(Object s1) throws Exception
     {
-
+        return s1;
     }
 
     Object args____eps() throws Exception
     {
-        return new ArrayList<ParseTree.Expr>();
+        return new ArrayList<ParseTree.Arg>();
     }
 
-    Object arglist____arglist_COMMA_expr() throws Exception
+    Object arglist____arglist_COMMA_expr(Object s1, Object s3) throws Exception
     {
-
+        ((ArrayList<ParseTree.Arg>)s1).add((ParseTree.Arg)s3);
+        return s1;
     }
 
-    Object arglist____expr() throws Exception
+    Object arglist____expr(Object s1) throws Exception
     {
-
+        ArrayList<ParseTree.Arg> arglist = new ArrayList<ParseTree.Arg>();
+        ParseTree.Arg expr = new ParseTree.Arg((ParseTree.Expr)s1);
+        arglist.add(expr);
+        return arglist;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    Object expr____expr_AND_expr() throws Exception{
-
+    Object expr____expr_AND_expr(Object s1, Object s2, Object s3) throws Exception{
+        ParseTree.Expr expr1 = (ParseTree.Expr)s1;
+        Token          oper  = (Token         )s2;
+        ParseTree.Expr expr2 = (ParseTree.Expr)s3;
+        return new ParseTree.ExprOper("and",expr1,expr2);
     }
 
-    Object expr____expr_OR_expr() throws Exception{
-
+    Object expr____expr_OR_expr(Object s1, Object s2, Object s3) throws Exception{
+        ParseTree.Expr expr1 = (ParseTree.Expr)s1;
+        Token          oper  = (Token         )s2;
+        ParseTree.Expr expr2 = (ParseTree.Expr)s3;
+        return new ParseTree.ExprOper("or",expr1,expr2);
     }
 
-    Object expr____NOT_expr() throws Exception{
-
+    Object expr____NOT_expr(Object s1, Object s2, Object s3) throws Exception{
+        ParseTree.Expr expr1 = (ParseTree.Expr)s1;
+        Token          oper  = (Token         )s2;
+        ParseTree.Expr expr2 = (ParseTree.Expr)s3;
+        return new ParseTree.ExprOper("not",expr1,expr2);
     }
 
     Object expr____expr_EQ_expr(Object s1, Object s2, Object s3) throws Exception

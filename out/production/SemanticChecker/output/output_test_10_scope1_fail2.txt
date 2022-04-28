@@ -1,3 +1,0 @@
-Error: there is semantic error(s).
-The identifier la is already defined.
-Error location is 4:9.

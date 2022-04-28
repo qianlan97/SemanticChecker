@@ -1,3 +1,0 @@
-Error: there is semantic error(s).
-Cannot use a variable Func as a function.
-Error location is 9:10.

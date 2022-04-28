@@ -1,3 +1,0 @@
-Error: there is semantic error(s).
-The type of returning value (int) should match with the return type (bool) of the function main().
-Error location is 3:12.

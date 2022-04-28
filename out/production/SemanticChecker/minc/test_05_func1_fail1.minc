@@ -1,7 +1,0 @@
-func Func::()->int
-begin
-end
-func main::()->int
-begin
-    return 0;
-end

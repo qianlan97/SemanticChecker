@@ -65,11 +65,11 @@ params          : param_list                                    { Debug("params 
 		|						{ Debug("params -> eps"                  	); $$ = params____eps			(); }
                 ;
 
-param_list	: param_list COMMA param			{ Debug("param_list -> param_list , param"      ); $$ = paramlist____paramlist_COMMA_param($1,$3); }
+param_list	: param_list { } COMMA param			{ Debug("param_list -> param_list , param"      ); $$ = paramlist____paramlist_COMMA_param($1,$3); }
 		| param						{ Debug("param_list -> param"                  	); $$ = paramlist____param		($1); }
 		;
 
-param		: IDENT TYPEOF type_spec			{ Debug("param -> IDENT TYPEOF type_spec"       ); $$ = param____IDENT_TYPEOF_type_spec	(); }
+param		: IDENT TYPEOF type_spec			{ Debug("param -> IDENT TYPEOF type_spec"       ); $$ = param____IDENT_TYPEOF_typespec	($1,$3); }
 		;
 
 type_spec	: prim_type					{ Debug("type_spec -> prim_type"                ); $$ = typespec____primtype		($1); }
@@ -83,7 +83,7 @@ local_decls     : local_decls local_decl			{ Debug("local_decls -> local_decls l
 		|						{ Debug("local_decls -> eps"                  	); $$ = localdecls____eps		(); }
                 ;
 
-local_decl	: VAR IDENT TYPEOF type_spec SEMI		{ Debug("local_decl -> VAR IDENT TYPEOF type_spec ;"); $$ = local_decl____VAR_IDENT_TYPEOF_typespec_SEMI(); }
+local_decl	: VAR IDENT TYPEOF type_spec SEMI		{ Debug("local_decl -> VAR IDENT TYPEOF type_spec ;"); $$ = local_decl____VAR_IDENT_TYPEOF_typespec_SEMI($2,$4); }
 		;
 
 stmt_list       : stmt_list stmt                                { Debug("stmt_list -> stmt_list stmt"           ); $$ = stmtlist____stmtlist_stmt	($1, $2); }
@@ -107,26 +107,26 @@ print_stmt	: PRINT expr SEMI				{ Debug("print_stmt -> PRINT expr ;"            
 return_stmt     : RETURN expr SEMI                              { Debug("return_stmt -> RETURN expr ;"          ); $$ = returnstmt____RETURN_expr_SEMI	($2); }
                 ;
 
-if_stmt		: IF expr THEN stmt_list ELSE stmt_list END	{ Debug("if_stmt -> IF expr THEN stmt_list ELSE stmt_list END"	); $$ = ifstmt____IF_expr_THEN_stmtlist_ELSE_stmtlist_END(); }
+if_stmt		: IF expr THEN stmt_list ELSE stmt_list END	{ Debug("if_stmt -> IF expr THEN stmt_list ELSE stmt_list END"	); $$ = ifstmt____IF_expr_THEN_stmtlist_ELSE_stmtlist_END($2,$4,$6); }
 		;
 
-while_stmt	: WHILE expr compound_stmt			{ Debug("while_stmt -> WHILE expr compound_stmt"); $$ = whilestmt____WHILE_expr_compoundstmt(); }
+while_stmt	: WHILE expr compound_stmt			{ Debug("while_stmt -> WHILE expr compound_stmt"); $$ = whilestmt____WHILE_expr_compoundstmt($2,$3); }
 		;
 
-compound_stmt	: BEGIN local_decls stmt_list END		{ Debug("compound_stmt -> BEGIN local_decls stmt_list END"); $$ = compoundstmt____BEGIN_localdecls_stmtlist_END(); }
+compound_stmt	: BEGIN local_decls stmt_list END		{ Debug("compound_stmt -> BEGIN local_decls stmt_list END"); $$ = compoundstmt____BEGIN_localdecls_stmtlist_END($2,$3); }
 		;
 
-args            : arg_list					{ Debug("args -> arg_list"                  	); $$ = args____arglist			(); }
+args            : arg_list					{ Debug("args -> arg_list"                  	); $$ = args____arglist			($1); }
 		|						{ Debug("args -> eps"                  		); $$ = args____eps			(); }
                 ;
 
-arg_list	: arg_list COMMA expr				{ Debug("arg_list -> arg_list , expr"           ); $$ = arglist____arglist_COMMA_expr	(); }
-		| expr						{ Debug("arg_list -> expr"                  	); $$ = arglist____expr			(); }
+arg_list	: arg_list COMMA expr				{ Debug("arg_list -> arg_list , expr"           ); $$ = arglist____arglist_COMMA_expr	($1,$3); }
+		| expr						{ Debug("arg_list -> expr"                  	); $$ = arglist____expr			($1); }
 		;
 
-expr            : expr AND expr                                 { Debug("expr -> expr and expr"                 ); $$ = expr____expr_AND_expr		(); }
-		| expr OR expr					{ Debug("expr -> expr or expr"                  ); $$ = expr____expr_OR_expr		(); }
-		| NOT expr					{ Debug("expr -> not expr"                  	); $$ = expr____NOT_expr		(); }
+expr            : expr AND expr                                 { Debug("expr -> expr and expr"                 ); $$ = expr____expr_AND_expr		($1,$2,$3); }
+		| expr OR expr					{ Debug("expr -> expr or expr"                  ); $$ = expr____expr_OR_expr		($1,$2,$3); }
+		| NOT expr					{ Debug("expr -> not expr"                  	); $$ = expr____NOT_expr		($1,$2,$3); }
                 | expr EQ expr                                 	{ Debug("expr -> expr == expr"                  ); $$ = expr____expr_EQ_expr		($1,$2,$3); }
                 | expr NE expr					{ Debug("expr -> expr != expr"                  ); $$ = expr____expr_NE_expr		($1,$2,$3); }
                 | expr LE expr 					{ Debug("expr -> expr <= expr"                  ); $$ = expr____expr_LE_expr		($1,$2,$3); }

@@ -1,3 +1,0 @@
-Error: there is semantic error(s).
-The 1st argument of the function Fib() should be int type.
-Error location is 20:16.

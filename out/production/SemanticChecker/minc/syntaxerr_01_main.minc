@@ -1,4 +1,0 @@
-func main :: ( ) -> int
-begin
-    return ; // syntax error
-end
